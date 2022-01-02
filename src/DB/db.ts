@@ -33,4 +33,18 @@ export default class DataBase {
         let postResult: Post = result;
         return postResult;
     }
+
+    public static postClient2DBModel(postClient: Post, copy_id?:boolean) {
+        const copy: Post = JSON.parse(JSON.stringify(postClient));
+
+        let result: any = copy;
+
+        if (copy_id && copy.id) {
+            result["_id"] = copy.id;
+        }
+        delete result["id"];
+        console.log(`copy result: ${result["_id"]}`);
+        console.log(`copy: ${copy["id"]}`);
+        return new PostModel(result);
+    }
 }
