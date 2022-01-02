@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const postsMongoose_model_1 = require("../models/postsMongoose.model");
 class DataBase {
     constructor() {
         this.pass = "mUxv7MrudLc8RaT";
@@ -35,6 +36,17 @@ class DataBase {
         delete result["_id"];
         let postResult = result;
         return postResult;
+    }
+    static postClient2DBModel(postClient, copy_id) {
+        const copy = JSON.parse(JSON.stringify(postClient));
+        let result = copy;
+        if (copy_id && copy.id) {
+            result["_id"] = copy.id;
+        }
+        delete result["id"];
+        console.log(`copy result: ${result["_id"]}`);
+        console.log(`copy: ${copy["id"]}`);
+        return new postsMongoose_model_1.PostModel(result);
     }
 }
 exports.default = DataBase;
