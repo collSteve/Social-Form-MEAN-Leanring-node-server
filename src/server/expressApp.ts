@@ -14,6 +14,9 @@ expressApp.use(express.urlencoded({
     extended: true
 }));
 
+const public_folder_path = path.join(__dirname, '../../public');
+expressApp.use(express.static(public_folder_path));
+
 expressApp.use((req, res, next)=>{
     const allowedOrigins = ["http://localhost:4200"];
     const origin = req.headers.origin;
@@ -31,9 +34,6 @@ expressApp.use((req, res, next)=>{
     );
     next();
 });
-
-const public_folder_path = path.join(__dirname, '../../public');
-expressApp.use(express.static(public_folder_path));
 
 expressApp.get("/test", (req,res)=>{
     return res.send("test successed");

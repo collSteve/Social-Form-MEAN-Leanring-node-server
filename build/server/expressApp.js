@@ -14,6 +14,8 @@ expressApp.use(express_1.default.json());
 expressApp.use(express_1.default.urlencoded({
     extended: true
 }));
+const public_folder_path = path_1.default.join(__dirname, '../../public');
+expressApp.use(express_1.default.static(public_folder_path));
 expressApp.use((req, res, next) => {
     const allowedOrigins = ["http://localhost:4200"];
     const origin = req.headers.origin;
@@ -25,8 +27,6 @@ expressApp.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
     next();
 });
-const public_folder_path = path_1.default.join(__dirname, '../../public');
-expressApp.use(express_1.default.static(public_folder_path));
 expressApp.get("/test", (req, res) => {
     return res.send("test successed");
 });
