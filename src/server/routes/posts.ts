@@ -52,9 +52,14 @@ router.get("", async (req, res, next)=>{
 });
 
 router.delete("/:id", async (req, res, next)=>{
-    const result = await PostModel.deleteOne({_id: req.params.id});
-    console.log(result);
-    res.status(200).json({message:"post deleted!"});
+    try {
+        const result = await PostModel.deleteOne({_id: req.params.id});
+        console.log(result);
+        return res.status(200).json({message:"post deleted!"});
+    } catch {
+        return res.status(500).json({message:"post delete failed!"});
+    }
+    
 });
 
 router.get("/:id", async (req, res, next)=>{
