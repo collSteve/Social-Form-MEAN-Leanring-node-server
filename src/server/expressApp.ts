@@ -1,4 +1,5 @@
 import express, {Express} from "express";
+import path from "path";
 
 import router from "./routes/posts";
 import DataBase from "../DB/db";
@@ -31,11 +32,17 @@ expressApp.use((req, res, next)=>{
     next();
 });
 
+const public_folder_path = path.join(__dirname, '../../public');
+expressApp.use(express.static(public_folder_path));
+
 expressApp.get("/test", (req,res)=>{
     return res.send("test successed");
 });
 
 expressApp.use("/api/posts", router)
 
+expressApp.get('/*',  function(req, res, next) {
+    res.sendFile('index.html', { root: public_folder_path }); 
+});
 
 export default expressApp;
