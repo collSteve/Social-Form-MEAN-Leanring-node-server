@@ -13,4 +13,4 @@ class App {
 }
 exports.App = App;
 const app = new App();
-app.initServer(3000);
+app.initServer(4000);
